@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Siri Travels | Explore the World</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; color: #fff; background: #000; }
+    header { display: flex; justify-content: space-between; align-items: center; padding: 30px 50px; background: rgba(0,0,0,0.6); position: fixed; width: 100%; top: 0; z-index: 999; }
+    header h1 { font-size: 2rem; color: #fff; }
+    nav a { margin-left: 30px; color: #fff; text-decoration: none; font-weight: 600; transition: color 0.3s; }
+    nav a:hover { color: #ffcc00; }
+    /* hero section with moving background */
+    .hero {
+      height: 100vh;
+      background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
+      background-size: 150% 150%;
+      background-repeat: no-repeat;
+      background-position: center;
+      animation: moveBackground 60s linear infinite;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+    @keyframes moveBackground {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+    .hero h2 { font-size: 4rem; margin-bottom: 20px; text-shadow: 2px 2px 8px #000; }
+    .hero p { font-size: 1.4rem; margin-bottom: 30px; max-width: 700px; text-shadow: 1px 1px 5px #000; }
+    .btn { padding: 15px 35px; background: #ffcc00; color: #333; border: none; border-radius: 50px; font-size: 1.2rem; text-decoration: none; font-weight: 600; transition: all 0.4s ease; }
+    .btn:hover { background: #fff; color: #0077ff; transform: scale(1.05); }
+    .section { padding: 80px 20px; background: #111; text-align: center; }
+    .section h3 { font-size: 2.8rem; margin-bottom: 20px; color: #ffcc00; }
+    .section p { font-size: 1.1rem; max-width: 800px; margin: 0 auto 40px; color: #ccc; }
+    .destinations { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
+    .destination-card { background: #222; border-radius: 15px; overflow: hidden; width: 300px; box-shadow: 0 8px 20px rgba(0,0,0,0.5); transition: transform 0.3s; }
+    .destination-card img { width: 100%; height: 200px; object-fit: cover; }
+    .destination-card h4 { padding: 15px; font-size: 1.5rem; color: #fff; }
+    .destination-card:hover { transform: translateY(-10px); }
+    form { max-width: 600px; margin: 30px auto; text-align: left; background: #222; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+    form label { display: block; margin-bottom: 10px; color: #fff; }
+    form input, form select { width: 100%; padding: 12px; border: none; border-radius: 8px; margin-bottom: 20px; font-size: 1rem; }
+    form button { background: #ffcc00; color: #333; border: none; padding: 14px 25px; border-radius: 50px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: 0.4s; }
+    form button:hover { background: #fff; color: #0077ff; }
+    footer { text-align: center; padding: 25px; background: #000; color: #777; font-size: 0.9rem; }
+    @media (max-width: 768px) {
+      header { flex-direction: column; }
+      .hero h2 { font-size: 2.8rem; }
+      .hero p { font-size: 1rem; }
+      .destinations { flex-direction: column; align-items: center; }
+    }
+    .typing-text { font-size: 2rem; margin: 20px 0; }
+    .carousel { margin: 30px 0; }
+    .carousel img {width: 20%;height: 250px;object-fit: cover;border-radius: 15px;
+}
+    #backToTop, #darkModeToggle { position: fixed; bottom: 20px; padding: 12px 18px; border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer; z-index: 9999; }
+    #backToTop { right: 20px; display: none; background: #ffcc00; }
+    .stats { display: flex; justify-content: center; gap: 30px; margin: 20px 0; color: #fff; }
+    .stats div { font-size: 1.5rem; }
+    .testimonial { font-size: 1.2rem; margin: 20px auto; max-width: 600px; transition: opacity 0.5s; }
+    .image-row {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 10px;
+      padding: 10px;
+      background: #010101;
+      white-space: nowrap;
+    }
+    .image-row img {
+      height: 200px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SIRI TRAVELS</h1>
+    <nav>
+    <a href="index.html">Home</a>
+    <a href="destinations.html">Destinations</a>
+    <a href="packages.html">Packages</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  </header>
+
+  <div class="hero">
+    <h2>Discover Your Next Adventure</h2>
+    <p>Plan your perfect trip with Siri Travels — where unforgettable destinations and experiences await you.</p>
+  </div>
+  
+
+  <p class="typing-text"></p>
+
+  
+  <div class="image-row">
+  <img src="https://img.freepik.com/premium-photo/hanoi-tour-with-carousel-image-slider-adventurous-layout-v-travel-website-layout-idea-designs_1020495-626252.jpg" alt="Image 1">
+  <img src="https://media.istockphoto.com/id/1207829943/photo/trang-an-landscape-complex.jpg?s=612x612&w=0&k=20&c=WR8w8gheaPLUVl0OuVglR9ejlMqdRytLEr8hmzOajo8=" alt="Image 2">
+  <img src="https://www.flamingotravels.co.in/_next/image?url=https%3A%2F%2Fimgcdn.flamingotravels.co.in%2FImages%2FCity%2FGolden_bridge_2.jpg&w=3840&q=90" alt="Image 3">
+  <img src="https://img.freepik.com/premium-photo/jiuzhaigou-tour-with-grid-layout-effect-natural-layout-light-travel-website-layout-idea-designs_1020495-625632.jpg" alt="Image 4">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5aI6m0cZ4nmR3bma5fBMBf6owaae1SHMI-g&s" alt="Image 5">
+  <img src="https://img.freepik.com/premium-photo/grid-layout-web-with-lantern-shadow-figma-effect-modern-webs-autumn-theme-layout-idea-designs_1020495-628472.jpg" alt="Image 6">
+  <img src="https://media1.thrillophilia.com/filestore/pppve45yivk2zn9e7f1sxigysmvj_Mega%20Grand-3.jpg" alt="Image 7">
+  <img src="https://prod-khyaal-web-resources.s3.ap-south-1.amazonaws.com/khyaal-website/travel/vietnam/slider-5.jpg" alt="Image 8">
+  <img src="https://d3h30waly5w5yx.cloudfront.net/images/tour/pictures/bai-dinh-pagoda-trang-an-cave-spe-web-1.jpg" alt="Image 9">
+  <img src="https://img.freepik.com/premium-photo/shenzhen-tour-with-full-screen-image-background-effect-moder-travel-website-layout-idea-designs_1020495-627265.jpg" alt="Image 10">
+  <img src="https://www.bharatbooking.com/admin/webroot/img/uploads/holiday-package-gallery/1700822586_362925-8n-9d-vietnam-trip-package-slider-image.webp" alt="Image 11">
+  <img src="https://static.vinwonders.com/2022/10/Hanoi-travel-thumb.jpg" alt="Image 12">
+</div>
+
+  <div class="section">
+    <h3>Top Destinations</h3>
+    <p>Explore the world’s most stunning and exotic locations curated just for you.</p>
+    <div class="destinations">
+      <div class="destination-card"><img src="https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=800&q=80" alt="Beach"><h4>Bali, Indonesia</h4></div>
+      <div class="destination-card"><img src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=800&q=80" alt="Mountain"><h4>Swiss Alps</h4></div>
+      <div class="destination-card"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80" alt="City"><h4>Tokyo, Japan</h4></div>
+    </div>
+  </div>
+
+  <div class="section" id="book-section">
+  <h3>Book Your Travel</h3>
+  <form onsubmit="event.preventDefault(); bookTravel();">
+    <label>Full Name</label><input type="text" placeholder="Enter your name" required>
+    <label>Email Address</label><input type="email" placeholder="Enter your email" required>
+    <label>Select Destination</label>
+    <select required>
+      <option value="">-- Choose a destination --</option>
+      <option>Bali, Indonesia</option>
+      <option>Swiss Alps</option>
+      <option>Tokyo, Japan</option>
+      <option>Maldives</option>
+      <option>Paris, France</option>
+    </select>
+    <label>Travel Date</label><input type="date" required>
+    <label>Number of Travelers</label><input type="number" min="1" max="20" value="1">
+    <button type="submit">Book Now</button>
+  </form>
+</div>
+
+
+
+
+  <div class="section">
+    <h3>Our Achievements</h3>
+    <div class="stats">
+      <div><span id="count1">0</span><p>Happy Travelers</p></div>
+      <div><span id="count2">0</span><p>Destinations</p></div>
+      <div><span id="count3">0</span><p>Bookings</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Testimonials</h3>
+    <p id="testimonial" class="testimonial">"Best travel agency experience ever!"</p>
+  </div>
+
+  <button id="backToTop">↑</button>
+
+  <footer>&copy; 2025 Hema Travels. All rights reserved.</footer>
+
+  <script>
+    const texts = ["Explore The World", "Plan Your Dream Trip", "Travel. Discover. Live."];
+    let txtIndex = 0, charIndex = 0;
+    function typeText() {
+      if (charIndex < texts[txtIndex].length) {
+        document.querySelector('.typing-text').textContent += texts[txtIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(typeText, 100);
+      } else {
+        setTimeout(() => {
+          document.querySelector('.typing-text').textContent = "";
+          charIndex = 0;
+          txtIndex = (txtIndex + 1) % texts.length;
+          typeText();
+        }, 2000);
+      }
+    }
+    typeText();
+
+    const images = ["https://source.unsplash.com/1600x900/?beach","https://source.unsplash.com/1600x900/?mountains","https://source.unsplash.com/1600x900/?cityscape"];
+    let imgIndex = 0;
+    setInterval(() => {
+      imgIndex = (imgIndex + 1) % images.length;
+      document.getElementById("carouselImage").src = images[imgIndex];
+    }, 4000);
+
+    window.onscroll = function() {
+      document.getElementById("backToTop").style.display = window.scrollY > 400 ? "block" : "none";
+    };
+    document.getElementById("backToTop").onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    
+
+    let statsStarted = false;
+    window.addEventListener('scroll', () => {
+      const statsTop = document.querySelector('.stats').offsetTop;
+      if (!statsStarted && window.scrollY + window.innerHeight > statsTop) {
+        statsStarted = true;
+        let count1 = 0, count2 = 0, count3 = 0;
+        let interval = setInterval(() => {
+          if (count1 < 500) { count1 += 5; document.getElementById("count1").innerText = count1; }
+          if (count2 < 120) { count2 += 2; document.getElementById("count2").innerText = count2; }
+          if (count3 < 350) { count3 += 3; document.getElementById("count3").innerText = count3; }
+          if (count1 >= 500 && count2 >= 120 && count3 >= 350) clearInterval(interval);
+        }, 30);
+      }
+    });
+
+    const testimonials = ["Best travel agency experience ever!","Booked my honeymoon trip — flawless service.","The best decision we made for our family vacation!","Professional, prompt and very friendly."];
+    let testiIndex = 0;
+    setInterval(() => {
+      testiIndex = (testiIndex + 1) % testimonials.length;
+      const testi = document.getElementById("testimonial");
+      testi.style.opacity = 0;
+      setTimeout(() => { testi.innerText = testimonials[testiIndex]; testi.style.opacity = 1; }, 500);
+    }, 4000);
+   
+  function bookTravel() {
+  const modal = document.getElementById("bookingModal");
+  const closeBtn = modal.querySelector(".close-button");
+
+  // Show the modal
+  modal.style.display = "block";
+
+  // Reset the form
+  const form = document.querySelector("#book-section form");
+  form.reset();
+
+  // Close on X button click
+  closeBtn.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // Close on outside click
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+}
+// Booking modal for packages page
+const packageButtons = document.querySelectorAll('.book-btn');
+const packageModal = document.getElementById('packageModal');
+const closePackageBtn = document.querySelector('#packageModal .close-button');
+
+// Show modal on book button click
+packageButtons.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    packageModal.style.display = 'block';
+  });
+});
+
+// Close modal on X click
+closePackageBtn.addEventListener('click', () => {
+  packageModal.style.display = 'none';
+});
+
+// Close modal when clicking outside modal content
+window.addEventListener('click', (e) => {
+  if (e.target == packageModal) {
+    packageModal.style.display = 'none';
+  }
+});
+
+
+
+
+
+
+
+  </script>
+  <style>
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+
+     .social-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 28px;
+      transition: all 0.4s ease;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .social-icons a.whatsapp {
+      background-color: #25D366;
+    }
+
+    .social-icons a.instagram {
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    }
+
+    .social-icons a.facebook {
+      background-color: #3b5998;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.2);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+    .modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  padding-top: 200px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+}
+
+.modal-content {
+  background: #fff;
+  margin: auto;
+  padding: 30px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  animation: fadeIn 0.3s;
+}
+
+.close-button {
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  color: #333; /* ← ADD THIS */
+}
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 14% auto;
+  padding: 25px 20px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  animation: slideIn 0.35s ease;
+}
+
+.close-button {
+  float: right;
+  font-size: 26px;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #333;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-50px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+
+  </style>
+  <div class="section">
+  <h3>Follow Us</h3>
+  <div class="social-icons">
+    <a href="https://wa.me/yourwhatsapplink" target="_blank" title="WhatsApp" class="whatsapp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="https://instagram.com/yourprofile" target="_blank" title="Instagram" class="instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://facebook.com/yourpage" target="_blank" title="Facebook" class="facebook">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+  </div>
+</div>
+<div class="section">
+  <h3>Our Office Address</h3>
+  <p>Siri Travels Pvt Ltd,<br> Near Lakshmi Theater,<br> Tanuku,Andhra pradesh, India - 534211</p>
+</div>
+<div id="bookingModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <h2>Booking Confirmed!</h2>
+    <p>Your travel is booked! ✈️🌍</p>
+  </div>
+</div>
+
+<div id="packageModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <h2 style="margin-bottom: 10px;">✅ Your Package is Booked!</h2>
+    <p>Thank you for choosing Siri Travels.Have a Wonderful Trip ✈️✨</p>
+  </div>
+</div>
+
+
+
+</body>
+</html>

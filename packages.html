@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Packages - Siri Travels</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: #f2f2f2;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(135deg, #004080, #0066cc);
+      color: white;
+      padding: 25px 10px;
+      text-align: center;
+      border-radius: 0 0 20px 20px;
+    }
+
+    nav {
+      background-color: #003366;
+      padding: 14px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 18px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffd700;
+    }
+
+    .section {
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .section h2 {
+      margin-bottom: 30px;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: #004080;
+    }
+
+    .packages {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .package-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      width: 310px;
+      overflow: hidden;
+      text-align: left;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .package-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+    }
+
+    .package-card img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+    }
+
+    .package-card h4 {
+      margin: 18px 15px 8px;
+      font-size: 1.3rem;
+      color: #004080;
+    }
+
+    .package-card p {
+      margin: 0 15px 10px;
+      font-size: 0.95rem;
+    }
+
+    .price {
+      color: #27ae60;
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin: 0 15px 10px;
+    }
+
+    .book-btn {
+      display: block;
+      margin: 10px 15px 18px;
+      padding: 10px;
+      text-align: center;
+      background: #004080;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .book-btn:hover {
+      background: #0066cc;
+    }
+
+    @media (max-width: 768px) {
+      .packages {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    #backToTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      background-color: #0a3d62;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: none;
+      font-size: 14px;
+    }
+
+    /* Toggle button */
+    #toggleMode {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #fff;
+  color: #0a3d62;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  z-index: 9999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #121212;
+    }
+    body.dark-mode nav {
+      background-color: #1e1e1e;
+    }
+    body.dark-mode .card {
+      background-color: #1e1e1e;
+      color: #f0f0f0;
+    }
+    body.dark-mode .card-content h3 {
+      color: #87ceeb;
+    }
+    body.dark-mode #backToTop {
+      background-color: #333;
+      color: #fff;
+    }
+    body.dark-mode #toggleMode {
+      background-color: #333;
+      color: #fff;
+    }
+    /* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 14% auto;
+  padding: 25px 20px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  animation: slideIn 0.35s ease;
+}
+
+.close-button {
+  float: right;
+  font-size: 26px;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #333;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-40px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+.package-card {
+  background: white;
+  color: #333;
+  /* other existing properties */
+}
+
+
+  </style>
+</head>
+
+<body>
+  <button id="toggleMode">Dark Mode</button>
+  <header>
+    <h1>Siri Travels - Explore Premium Travel Packages</h1>
+    
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="destinations.html">Destinations</a>
+    <a href="packages.html">Packages</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <div class="section">
+    <h2>Discover Beautiful Places</h2>
+
+    <div class="packages">
+
+  <div class="package-card">
+    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80" alt="Paris">
+    <h4>Paris, France (5 Nights)</h4>
+    <p>Visit the Eiffel Tower, cruise the Seine, and enjoy French cuisine and romance.</p>
+    <p class="price">₹95,000</p>
+    <a href="#" class="book-btn">Book Now</a>
+  </div>
+
+  <div class="package-card">
+  <img src="images/bali1.jpg" alt="Bali">
+  <h4>Bali, Indonesia (6 Days)</h4>
+  <p>Relax on tropical beaches, visit ancient temples, and explore lush rice terraces.</p>
+  <p class="price">₹45,000</p>
+  <a href="#" class="book-btn">Book Now</a>
+</div>
+
+
+  <div class="package-card">
+    <img src="images/araku.jpg" alt="Araku Valley">
+    <h4>Araku Valley, India (3 Nights)</h4>
+    <p>Misty hills, coffee plantations, waterfalls, and tribal markets in Andhra Pradesh.</p>
+    <p class="price">₹15,000</p>
+    <a href="#" class="book-btn">Book Now</a>
+  </div>
+
+  <div class="package-card">
+    <img src="images/turkey.jpg" alt="Cappadocia">
+    <h4>Cappadocia, Turkey (4 Nights)</h4>
+    <p>Soar above fairy chimneys in hot air balloons and explore ancient cave dwellings.</p>
+    <p class="price">₹80,000</p>
+    <a href="#" class="book-btn">Book Now</a>
+  </div>
+
+  <div class="package-card">
+    <img src="https://images.unsplash.com/photo-1505843513577-22bb7d21e455?auto=format&fit=crop&w=800&q=80" alt="Venice">
+    <h4>Venice, Italy (3 Nights)</h4>
+    <p>Romantic gondola rides, charming canals, and iconic Italian piazzas and palaces.</p>
+    <p class="price">₹90,000</p>
+    <a href="#" class="book-btn">Book Now</a>
+  </div>
+  <div class="package-card">
+  <img src="images/Tokyo.jpg" alt="Tokyo">
+  <h4>Tokyo, Japan (5 Nights)</h4>
+  <p>Futuristic cityscapes, cherry blossoms, and ancient shrines in the heart of Japan.</p>
+  <p class="price">₹95,000</p>
+  <a href="#" class="book-btn">Book Now</a>
+</div>
+
+<div class="package-card">
+  <img src="images/london1.jpg" alt="London">
+  <h4>London, UK (4 Nights)</h4>
+  <p>Historic landmarks, double-decker buses, royal palaces, and Thames river cruises.</p>
+  <p class="price">₹1,10,000</p>
+  <a href="#" class="book-btn">Book Now</a>
+</div>
+
+<div class="package-card">
+  <img src="images/dubai1.jpg" alt="Dubai">
+  <h4>Dubai, UAE (3 Nights)</h4>
+  <p>Luxury shopping, desert safaris, Burj Khalifa views, and Arabian hospitality.</p>
+  <p class="price">₹70,000</p>
+  <a href="#" class="book-btn">Book Now</a>
+</div>
+
+<div class="package-card">
+  <img src="images/singapore.jpg" alt="Singapore">
+  <h4>Singapore (4 Nights)</h4>
+  <p>Futuristic skyline, Gardens by the Bay, Sentosa Island, and vibrant night markets.</p>
+  <p class="price">₹88,000</p>
+  <a href="#" class="book-btn">Book Now</a>
+</div>
+
+<div class="package-card">
+  <img src="images/bangkok.jpg" alt="Bangkok">
+  <h4>Bangkok, Thailand (3 Nights)</h4>
+  <p>Grand palaces, floating markets, street food adventures, and lively nightlife.</p>
+  <p class="price">₹40,000</p>
+  <a href="#" class="book-btn">Book Now</a>
+</div>
+
+  <div class="package-card">
+    <img src="images/new york.jpg" alt="New York">
+    <h4>New York City, USA (4 Nights)</h4>
+    <p>Skyscrapers, Times Square, Central Park, Broadway, and unforgettable city energy.</p>
+    <p class="price">₹1,20,000</p>
+    <a href="#" class="book-btn">Book Now</a>
+  </div>
+
+</div>
+<button id="backToTop">Top</button>
+<div id="packageModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <h2>✅ Your Package is Booked!</h2>
+    <p>Thank you for choosing Siri Travels. Have a wonderful trip! ✈️✨</p>
+  </div>
+</div>
+  <script>
+     const toggleBtn = document.getElementById('toggleMode');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      toggleBtn.textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
+    });
+  }
+
+  // Back to top button
+  const backToTopBtn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    backToTopBtn.style.display = window.pageYOffset > 300 ? 'block' : 'none';
+  });
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Book Now confirmation message
+  const bookButtons = document.querySelectorAll('.book-btn');
+  bookButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('Your package has been confirmed!');
+    });
+  });
+  // Booking modal for packages page
+const packageButtons = document.querySelectorAll('.book-btn');
+const packageModal = document.getElementById('packageModal');
+const closePackageBtn = document.querySelector('#packageModal .close-button');
+
+// Show modal on book button click
+packageButtons.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    packageModal.style.display = 'block';
+  });
+});
+
+// Close modal on X click
+closePackageBtn.addEventListener('click', () => {
+  packageModal.style.display = 'none';
+});
+
+// Close modal when clicking outside modal content
+window.addEventListener('click', (e) => {
+  if (e.target == packageModal) {
+    packageModal.style.display = 'none';
+  }
+});
+
+  </script>
+
+</body>
+</html>

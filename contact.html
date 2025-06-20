@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact - Siri Travels</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f3f7; color: #333; }
+
+    header {
+      background: linear-gradient(to right, #0a3d62,#0a3d62);
+      padding: 60px 20px;
+      color: #fff;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    }
+
+    nav {
+      padding: 20px;
+      text-align: center;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #007BFF;
+      font-weight: 500;
+    }
+
+    nav a:hover { color: #0056b3; }
+
+    .contact-section {
+      background: #e9eef3;
+      padding: 50px 20px;
+    }
+
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0 auto;
+      max-width: 1200px;
+      gap: 20px;
+      animation: fadeIn 1.5s ease;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .contact-form, .contact-info {
+      flex: 1 1 400px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    .contact-form h2, .contact-info h2 {
+      margin-bottom: 20px;
+      color: #007BFF;
+    }
+
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      background: #f9fcfe;
+    }
+
+    .contact-form button {
+      padding: 14px 25px;
+      background: linear-gradient(to right, #007BFF, #00c6ff);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 17px;
+      transition: 0.3s;
+    }
+
+    .contact-form button:hover {
+      background: linear-gradient(to right, #0056b3, #00a4cc);
+      transform: translateY(-2px);
+    }
+
+    .contact-info p {
+      margin-bottom: 16px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .contact-info p i {
+      margin-right: 10px;
+      color: #0a3d62;
+    }
+
+    iframe {
+      border: 0;
+      width: 100%;
+      height: 300px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(to right, #0a3d62, #00c6ff);
+      color: #fff;
+      margin-top: 0;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #28a745;
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      animation: fadeIn 0.8s ease;
+    }
+    #form-message {
+  margin-top: 15px;
+  color: #28a745;
+  font-size: 16px;
+  display: none;
+}
+body.dark-mode {
+  background: #121212;
+  color: #f1f1f1;
+}
+
+body.dark-mode header {
+  background: linear-gradient(to right, #333, #111);
+   color: #007BFF;
+}
+
+body.dark-mode nav {
+  background: #1e1e1e;
+  box-shadow: 0 2px 5px rgba(255,255,255,0.05);
+}
+
+body.dark-mode nav a {
+  color: #dddddd;
+}
+
+body.dark-mode nav a:hover {
+  color: #00c6ff;
+}
+
+body.dark-mode .contact-section {
+  background: #222;
+}
+
+body.dark-mode .contact-form, 
+body.dark-mode .contact-info {
+  background: #2c2c2c;
+  color: #eee;
+}
+
+body.dark-mode .contact-form input, 
+body.dark-mode .contact-form textarea {
+  background: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+body.dark-mode .contact-form button {
+  background: linear-gradient(to right, #007BFF, #00c6ff);
+  color: #fff;
+}
+
+
+body.dark-mode .contact-form button:hover {
+  background: linear-gradient(to right, #3399ff, #00e6ff);
+}
+
+
+
+body.dark-mode .contact-info p i {
+  color: #00c6ff;
+}
+
+body.dark-mode footer {
+  background: linear-gradient(to right, #333, #111);
+  color: #fff;
+}
+
+
+  </style>
+
+  <script>
+    function showPopup(event) {
+    event.preventDefault();
+    const messageDiv = document.getElementById("form-message");
+    messageDiv.innerHTML = "<i class='fas fa-check-circle'></i> Message sent successfully!";
+    messageDiv.style.display = "block";
+    setTimeout(() => {
+      messageDiv.style.display = "none";
+    }, 3000);
+  }
+  function toggleMode() {
+  document.body.classList.toggle("dark-mode");
+  // Save preference in localStorage
+  if (document.body.classList.contains("dark-mode")) {
+    localStorage.setItem("theme", "dark");
+  } else {
+    localStorage.setItem("theme", "light");
+  }
+}
+
+// On page load, apply stored preference
+window.onload = function() {
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+  }
+}
+function showPopup(event) {
+  event.preventDefault();
+
+  const messageDiv = document.getElementById("form-message");
+  messageDiv.innerHTML = "<i class='fas fa-check-circle'></i> Message sent successfully!";
+  messageDiv.style.display = "block";
+
+  // Clear the form fields
+  const form = event.target;
+  form.reset();
+
+  setTimeout(() => {
+    messageDiv.style.display = "none";
+  }, 3000);
+}
+
+
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<header>
+  <h1>Contact Us</h1>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="destinations.html">Destinations</a>
+  <a href="packages.html">Packages</a>
+  <a href="contact.html">Contact</a>
+  <button onclick="toggleMode()" style="margin-left: 20px; padding: 8px 14px; border: none; border-radius: 6px; background: #007BFF; color: #fff; cursor: pointer;">🌓 Mode</button>
+</nav>
+
+<div class="contact-section">
+  <div class="contact-container">
+
+    <div class="contact-form">
+  <h2>Send Us a Message</h2>
+  <form onsubmit="showPopup(event)">
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Your Email" required>
+    <input type="text" placeholder="Subject" required>
+    <textarea rows="5" placeholder="Your Message" required></textarea>
+    <button type="submit">Send Message</button>
+    <div id="form-message"></div>
+  </form>
+</div>
+
+
+    <div class="contact-info">
+      <h2>Our Contact Details</h2>
+      <p><i class="fas fa-map-marker-alt"></i><strong>Address:</strong> Siri Travels, Tanuku , Andhara Pradesh , India</p>
+      <p><i class="fas fa-envelope"></i><strong>Email:</strong> contact@siritravels.com</p>
+      <p><i class="fas fa-phone"></i><strong>Phone:</strong> +91 98765 43210</p>
+      <p>We'd love to hear from you — whether it's for a travel plan, feedback, or a query.</p>
+
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.3627655811605!2d78.4866710751355!3d17.436911683506274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9767d14c71ab%3A0x17f9605b5dfef2b2!2sMG%20Road%2C%20Secunderabad!5e0!3m2!1sen!2sin!4v1718188740994!5m2!1sen!2sin"
+        allowfullscreen="" loading="lazy"></iframe>
+    </div>
+
+  </div>
+</div>
+
+
+
+<footer>
+  &copy; 2025 Siri Travels | All rights reserved.
+</footer>
+
+</body>
+</html>
